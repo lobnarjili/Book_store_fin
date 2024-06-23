@@ -1,0 +1,65 @@
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-4">
+            <img src="/assets/ajouter book.jpg" alt="Logo" class="img-fluid rounded"  style="width:9000 px; height: 800px;">
+        </div>
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h2 class="card-title text-center mb-4">Ajouter un Livre</h2>
+                    <form action="/ajouter-livre" method="POST" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label for="code">Code:</label>
+                            <input type="text" class="form-control" id="code" name="code" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Nom:</label>
+                            <input type="text" class="form-control" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="prix">Prix:</label>
+                            <input type="number" class="form-control" id="prix" name="prix" step="0.01" required min="0.01">
+                            <!-- Utilisation de min="0.01" pour éviter les valeurs négatives et zéro -->
+                        </div>
+                        <div class="form-group">
+                            <label for="auteur">Auteur:</label>
+                            <input type="text" class="form-control" id="auteur" name="auteur" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="image">Image:</label>
+                            <input type="file" class="form-control-file" id="image" name="image" accept="image/*" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="categorieById">Catégorie:</label>
+                            <select class="form-control" id="categorieById" name="categorieById" required>
+                                <!-- Les catégories seront chargées dynamiquement -->
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Description:</label>
+                            <textarea class="form-control" id="description" name="description" rows="4" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Ajouter le Livre</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        fetch('/categories')
+            .then(response => response.json())
+            .then(data => {
+                const categorieSelect = document.getElementById('categorieById');
+                data.forEach(categorie => {
+                    const option = document.createElement('option');
+                    option.value = categorie.id;
+                    option.textContent = categorie.name;
+                    categorieSelect.appendChild(option);
+                });
+            })
+            .catch(error => console.error('Error fetching categories:', error));
+    });
+</script>
