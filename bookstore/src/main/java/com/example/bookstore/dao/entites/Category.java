@@ -27,7 +27,8 @@ public class Category {
      @Column(nullable = false, unique = true)
     private String name;
 
-    
+      // @OneToMany(mappedBy = "category",cascade = CascadeType.ALL)
+    // private List<Book> books;
 
     public Category(String name) {
         this.name = name;

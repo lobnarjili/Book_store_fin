@@ -90,12 +90,6 @@ public class BookController {
     //     }
     //     return new ResponseEntity<>("Failed: book not found", HttpStatus.NOT_FOUND);
     // }
-    // public ResponseEntity<?> getBookById(@PathVariable Long id) {
-    //     BookDTO category =CategoryDTO.toCategoryDTO(this.categoryService.getCategoryById(id));
-  
-    //          return new ResponseEntity<>(category, HttpStatus.OK);
-    //        }
- 
 
     public ResponseEntity<?> getBookById(@PathVariable Long id) {
         BookDTO book =BookDTO.toBookDTO(this.bookService.getBookById(id));

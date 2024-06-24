@@ -9,6 +9,7 @@ import { BookService } from '../services/book.service';
   styleUrls: ['./edit-book.component.css']
 })
 export class EditBookComponent implements OnInit{
+
  book: Book = new Book(null,'','',0,'','',0,''); 
  isLoading: boolean = false;
  errMail: string = '';
@@ -27,7 +28,7 @@ ngOnInit(): void {
     if (id !== '-1') {
       this.initBook(id);
     } else {
-      this.book = new Book(null,'','',0,'','',0,''); ; // Nouvelle catégorie vide pour l'ajout
+      this.book = new Book(null,'','',0,'','',0,''); ;
     }
   });
 }
@@ -42,4 +43,37 @@ initBook(id: any) {
     }
   );
 }
+
+onSubmit() {
+  this.isLoading = true;
+
+  if (this.book.id == null) {
+    // Ajout d'une nouvelle catégorie
+    this.bookService.addBook(this.book).subscribe({
+      next: (newBook:Book) => {
+        this.errMail = '';
+        this.router.navigateByUrl('/books'); // Redirection vers la liste des catégories après ajout
+      },
+      error: (err) => {
+        this.errMail = err.message || 'Failed to add book.';
+        console.error('Error adding book:', err);
+        this.isLoading = false;
+      }
+    });
+  } else {
+
+    this.bookService.updateBook(this.book).subscribe({
+      next: (updatedBook: Book) => {
+        this.errMail = '';
+        this.router.navigateByUrl('/books'); // Redirection vers la liste des catégories après mise à jour
+      },
+      error: (err) => {
+        this.errMail = err.message || 'Failed to update book.';
+        console.error('Error updating book:', err);
+        this.isLoading = false;
+      }
+    });
+  }
 }
+}
+

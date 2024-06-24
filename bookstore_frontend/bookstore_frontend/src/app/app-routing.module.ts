@@ -18,9 +18,10 @@ const routes: Routes = [
   { path: 'categories',canActivate:[authGuard], component: CategoriesComponent },
   { path: 'categories/edit/:id',canActivate:[authGuard], component:EditCategoryComponent },
   { path: 'categories/:id',canActivate:[authGuard], component:  CategoryDetailComponent },
-  { path: 'Books',canActivate:[authGuard], component: BooksComponent },
-  { path: 'Books/edit/:id',canActivate:[authGuard], component:EditBookComponent},
-  { path: 'Books/:id',canActivate:[authGuard], component:  BookDetailComponent },
+  
+   { path: 'books',canActivate:[authGuard], component: BooksComponent },
+   { path: 'books/edit/:id',canActivate:[authGuard], component:EditBookComponent},
+   { path: 'books/:id',canActivate:[authGuard], component:  BookDetailComponent },
 
 { path: 'signin', component: SigninComponent },
   { path: 'about', component: AboutComponent },

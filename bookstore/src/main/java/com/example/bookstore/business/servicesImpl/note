@@ -27,8 +27,7 @@ public class BookServiceImpl implements BookService {
         if (id == null) {
             throw new IllegalArgumentException("ID cannot be null");
         }
-         return this.bookRepository.findById(id)
-         .orElseThrow(() -> new EntityNotFoundException("BOOK with id: " + id + " not found"));
+         return this.bookRepository.findById(id) .orElseThrow(() -> new EntityNotFoundException("BOOK with id: " + id + " not found"));
     }
     
 

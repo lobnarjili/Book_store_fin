@@ -53,7 +53,7 @@ export class BookService {
        return this.httpClient.post<Book>(this.baseURL+'/books',book,this.httpOptions)
       }
 
-      updateCategory(book:Book):Observable<Book>{ 
+      updateBook(book:Book):Observable<Book>{ 
         return this.httpClient.put<Book>(this.baseURL+'/books/'+book.id,book,this.httpOptions)
        }
  

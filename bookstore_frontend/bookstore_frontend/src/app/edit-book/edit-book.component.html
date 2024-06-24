@@ -1,14 +1,14 @@
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-4">
-            <img src="/assets/ajouter book.jpg" alt="Logo" class="img-fluid rounded"  style="width:9000 px; height: 800px;">
-        </div>
-        <div class="col-md-8">
-            <div class="card shadow-sm">
-                <div class="card-body">
-                    <h2 class="card-title text-center mb-4">Ajouter un Livre</h2>
-                    <form action="/ajouter-livre" method="POST" enctype="multipart/form-data">
-                        <div class="form-group">
+<div class="card border-primary mb-3">
+    <div class="card-header bg-primary text-white ">  <h3 *ngIf="!book.id;else update">Add Book</h3></div>
+    <ng-template #update>
+        <h3>Update Book</h3>
+    </ng-template>
+    <div class="card-body">
+       
+       
+
+        <form (ngSubmit)="onSubmit()" #form="ngForm"> 
+             <div class="form-group">
                             <label for="code">Code:</label>
                             <input type="text" class="form-control" id="code" name="code" required>
                         </div>
@@ -29,12 +29,11 @@
                             <label for="image">Image:</label>
                             <input type="file" class="form-control-file" id="image" name="image" accept="image/*" required>
                         </div>
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                             <label for="categorieById">Catégorie:</label>
                             <select class="form-control" id="categorieById" name="categorieById" required>
-                                <!-- Les catégories seront chargées dynamiquement -->
                             </select>
-                        </div>
+                        </div> -->
                         <div class="form-group">
                             <label for="description">Description:</label>
                             <textarea class="form-control" id="description" name="description" rows="4" required></textarea>
@@ -43,23 +42,5 @@
                     </form>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
+  
 
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        fetch('/categories')
-            .then(response => response.json())
-            .then(data => {
-                const categorieSelect = document.getElementById('categorieById');
-                data.forEach(categorie => {
-                    const option = document.createElement('option');
-                    option.value = categorie.id;
-                    option.textContent = categorie.name;
-                    categorieSelect.appendChild(option);
-                });
-            })
-            .catch(error => console.error('Error fetching categories:', error));
-    });
-</script>
