@@ -1,0 +1,48 @@
+<div class="card border-primary mb-3">
+    <div class="card-header bg-primary text-white">
+      <h3 *ngIf="!book.id; else update">Add Book</h3>
+    </div>
+    <ng-template #update>
+      <h3>Update Book</h3>
+    </ng-template>
+    <div class="card-body">
+      <form (ngSubmit)="onSubmit()" #form="ngForm">
+        <div class="form-group">
+          <label for="code">Code:</label>
+          <input type="text" class="form-control" id="code" name="code" [(ngModel)]="book.code" required>
+        </div>
+        <div class="form-group">
+          <label for="name">Nom:</label>
+          <input type="text" class="form-control" id="name" name="name" [(ngModel)]="book.name" required>
+          
+        </div>
+        <div class="form-group">
+          <label for="prix">Prix:</label>
+          <input type="number" class="form-control" id="prix" name="prix" [(ngModel)]="book.prix" step="0.01" required min="0.01">
+          
+        </div>
+        <div class="form-group">
+          <label for="auteur">Auteur:</label>
+          <input type="text" class="form-control" id="auteur" name="auteur" [(ngModel)]="book.auteur" required>
+        </div>
+        <div class="form-group">
+          <label for="image">Image:</label>
+          <input type="file" class="form-control-file" id="image" name="image" (change)="onImageChange($event)" accept="image/*" required>
+        </div>
+        <div class="form-group">
+          <label for="categoryById">Category:</label>
+          <select class="form-control" id="categoryById" name="categoryId" [(ngModel)]="book.categorieById" required>
+            <option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="description">Description:</label>
+          <textarea class="form-control" id="description" name="description" [(ngModel)]="book.description" rows="4" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" [disabled]="form.invalid || isLoading">
+          <span *ngIf="isLoading" class="spinner-border" role="status"></span> Save
+        </button>
+      </form>
+    </div>
+  </div>
+  

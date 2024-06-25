@@ -1,0 +1,34 @@
+<button class="btn btn-success" (click)="onAddBook()">Add New Book</button>
+
+<div class="card-deck mt-3">
+  <div class="card border-primary" *ngFor="let book of books">
+    <div class="card-header bg-primary text-white">
+      {{ book.name }}
+    </div>
+    <div class="card-body">
+<h3>Books list</h3>
+      <p class="card-text">Author: {{ book.auteur }}</p>
+      <p class="card-text">Price: {{ book.prix | currency }}</p>
+      <p class="card-text">Category: {{ book.categorieById }}</p> <!-- Utilisation de book.categoryById -->
+      <p class="card-text">Description: {{ book.description }}</p>
+      <a routerLink="/books/{{ book.id }}" class="btn btn-success">Detail</a>
+      <a routerLink="/books/edit/{{ book.id }}" class="btn btn-warning">Edit</a>
+      <button class="btn btn-danger" (click)="onDelete(book.id)" [disabled]="isWaitingDelete">Delete</button>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="books.length === 0; else nobooks">
+  <p class="alert alert-warning">
+    No books found!
+  </p>
+</div>
+
+<ng-template #nobooks>
+  <p class="alert alert-warning">
+    No books found!
+  </p>
+  <div *ngIf="errMsg" class="alert alert-danger">
+    <strong>Error!</strong> {{ errMsg }}
+  </div>
+</ng-template>
