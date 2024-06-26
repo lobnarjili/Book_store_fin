@@ -1,0 +1,26 @@
+<div class="card border-primary mb-3">
+    <div class="card-header bg-primary text-white ">  Book Detail Component</div>
+    <div class="card-body">
+        <div *ngIf="book ; else noBooks">
+            <h3>Book detail</h3>
+            <div class="card" style="width: 25em;">
+                <img [src]="book.image?baseURL+'storage/files/'+book.image:'../../assets/images/no-image.png'" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">{{book.name}}</h5>
+                  
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><strong>Auteur  :</strong> {{book.auteur}}.</li>
+                    <li class="list-group-item"><strong>Description </strong>{{book.description}}</li>
+                    <li class="list-group-item"><strong>Prix </strong>{{book.prix}}</li>
+                </ul>
+            </div>
+        </div>
+        <ng-template #noBooks>
+            <p>book not found</p>
+        </ng-template>
+    </div>
+</div>
+<button class="btn btn-primary" (click)="onBooks()">
+    Go to books
+</button>

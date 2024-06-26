@@ -1,0 +1,111 @@
+<button class="btn btn-info" (click)="onAddCategory()">
+    Add New Category
+</button>
+<div class="card border-primary mt-3">
+    <div class="card-header bg-primary text-white">
+        categories Component
+    </div>
+    <div class="card-body">
+        <div *ngIf="categories.length>0;else nocategories">
+            <h3> Categories List</h3>
+            <table class="table table-hover">
+                <thead>
+                    <th scope="col">Name</th>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let category of categories">
+                        <td>{{category.name}}</td>
+                        <!-- <td><a routerLink="/categories/{{category.id}}" class="btn btn-success">Detail</a></td>
+                        <td><a routerLink="/categories/edit/{{category.id}}" class="btn btn-warning">Edit</a></td> -->
+                        <td><button class="btn btn-danger" (click)="onDelete(category.id)" [disabled]="isWaitingDelete">
+                              Delete
+                            </button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+       <div *ngIf="isWaitingDelete">
+        <span  class="spinner-border" role="status"></span>
+        <h4>Category Deleting... please wait!</h4>
+       </div>
+        
+        <div [hidden]="!isWaiting">
+            <div class="spinner-border" role="status">
+            </div>
+            <h4>Looading... please wait!</h4>
+        </div>
+        <ng-template #nocategories>
+            <p class="alert alert-warning">
+                No categories found!
+            </p>
+            <div *ngIf="errMsg" class="alert alert-danger">
+                <strong>Error!</strong> {{errMsg}}
+            </div>
+        </ng-template>
+
+    </div>
+
+</div>
+
+
+<button class="btn btn-primary mt-5" (click)="onAbout()">
+    Go to about
+</button>
+ 
+ 
+ 
+ <!-- <button class="btn btn-info" (click)="onAddCategory()">
+    Add New Category
+</button>
+<div class="card border-primary mt-3">
+    <div class="card-header bg-primary text-white">
+        categories Component
+    </div>
+    <div class="card-body">
+        <div *ngIf="categories.length>0;else nocategories">
+            <h3> Categories List</h3>
+            <table class="table table-hover">
+                <thead>
+                    <th scope="col">Name</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let category of categories">
+                        <td>{{category.name}}</td>
+                        <td><a routerLink="/categories/{{category.id}}" class="btn btn-success">Detail</a></td>
+                        <td><a routerLink="/categories/edit/{{category.id}}" class="btn btn-warning">Edit</a></td>
+                        <td><button class="btn btn-danger" (click)="onDelete(category.id)" [disabled]="isWaitingDelete">
+                              Delete
+                            </button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+       <div *ngIf="isWaitingDelete">
+        <span  class="spinner-border" role="status"></span>
+        <h4>Category Deleting... please wait!</h4>
+       </div>
+        
+        <div [hidden]="!isWaiting">
+            <div class="spinner-border" role="status">
+            </div>
+            <h4>Looading... please wait!</h4>
+        </div>
+        <ng-template #nocategories>
+            <p class="alert alert-warning">
+                No categories found!
+            </p>
+            <div *ngIf="errMsg" class="alert alert-danger">
+                <strong>Error!</strong> {{errMsg}}
+            </div>
+        </ng-template>
+
+    </div>
+
+</div>
+
+
+<button class="btn btn-primary mt-5" (click)="onAbout()">
+    Go to about
+</button>  -->
