@@ -1,0 +1,41 @@
+<!-- <div class="container mt-2">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <a class="navbar-brand" href="#">{{title|uppercase}}</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item" *ngIf="isAuth">
+          <a class="nav-link" routerLink="/home">Home<span class="sr-only" outerLinkActive="active">(current)</span></a>
+        </li>
+       
+        <li class="nav-item"  *ngIf="isAuth">
+          <a class="nav-link" routerLink="/category"  outerLinkActive="active">Categories</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link"  *ngIf="!isAuth" routerLink="/signin"  outerLinkActive="active">Signin</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link"  *ngIf="isAuth" routerLink="/signin"  outerLinkActive="active">Signout</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</div>
+<div class="container mt-5">
+  <router-outlet></router-outlet>
+</div> -->
+<!-- <app-about></app-about> -->
+<!-- <div app-about></div> -->
+<!-- <div class="app-about"></div> -->
+<!--  <app-contacts></app-contacts> -->
+
+
+<div class="container">
+  <app-navbar></app-navbar>
+</div>
+<div class="container">
+  <router-outlet></router-outlet>
+</div>
