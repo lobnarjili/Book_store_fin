@@ -1,0 +1,139 @@
+
+<div class="card border-primary mb-3">
+    <div class="card-header bg-primary text-white">
+      <h3 *ngIf="!book.id; else update">Add Book</h3>
+    </div>
+    <ng-template #update>
+      <h3>Update Book</h3>
+    </ng-template>
+    <div class="card-body">
+      <form (ngSubmit)="onSubmit()" #form="ngForm">
+        <div class="form-group">
+          <label for="code">Code:</label>
+          <input type="text" class="form-control" id="code" name="code" [(ngModel)]="book.code" required #code="ngModel"
+          [ngClass]="{'is-invalid':code.invalid && code.dirty,'is-valid':code.valid}">
+          <div *ngIf="name.invalid && name.dirty" class="invalid-feedback">
+            Please verifier your Code.
+        </div>
+        </div>
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" name="name" required [(ngModel)]="book.name" #name="ngModel"
+                [ngClass]="{'is-invalid':name.invalid && name.dirty,'is-valid':name.valid}">
+
+            <div *ngIf="name.invalid && name.dirty" class="invalid-feedback">
+                Please provide a name.
+            </div>
+        </div>
+        <!-- <div class="form-group">
+          <label for="name">Nom:</label>
+          <input type="text" class="form-control" id="name" name="name" [(ngModel)]="book.name" required>
+          
+        </div> -->
+        <div class="form-group">
+          <label for="prix">Prix:</label>
+          <input type="number" class="form-control" id="prix" name="prix" [(ngModel)]="book.prix" step="0.01" required min="0.01">
+          
+        </div>
+        <div class="form-group">
+          <label for="auteur">Auteur:</label>
+          <input type="text" class="form-control" id="auteur" name="auteur" [(ngModel)]="book.auteur" required>
+        </div>
+        <!-- <div class="form-group">
+          <label for="image">Image:</label>
+          <input type="file" class="form-control-file" id="image" name="image" (change)="onImageChange($event)" accept="image/*" required>
+        </div> -->
+        <div class="form-group">
+          <label for="category">Category:</label>
+          <select class="form-control" id="category" name="category" [(ngModel)]="book.categoryDTO" required>
+            <option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="description">Description:</label>
+          <textarea class="form-control" id="description" name="description" [(ngModel)]="book.description" rows="4" required></textarea>
+        </div>
+
+        <div class="form-group">
+            <!-- Display the book's image if the book has an id (update use case). Use a default avatar if no image is available. -->
+            <img *ngIf="book.id"
+                [src]="book.image ? baseUrl + '/storage/files/' + book.image : '../../assets/images/default-avatar.jpg'"
+                class="img-responsive img-rounded" style="max-height: 50px; max-width: 50px;" alt="photo">
+            
+            <!-- File input for selecting a new image, styled as a button. -->
+            <label class="btn btn-success p-0">
+                <input type="file" (change)="selectFile($event)" />
+            </label>
+            
+            <!-- Display a progress bar when a file is being uploaded. -->
+            <div *ngIf="currentFile" class="progress my-3">
+                <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar"
+                    attr.aria-valuenow="{{ progress }}" aria-valuemin="0" aria-valuemax="100"
+                    [ngStyle]="{ width: progress + '%' }">
+                    {{ progress }}%
+                </div>
+            </div>
+            
+            <!-- Display a message if there is one, for example, success or error messages. -->
+            <div *ngIf="message" class="alert alert-secondary" role="alert">{{ message }}</div>
+        </div>
+        
+
+        <button type="submit" class="btn btn-primary" [disabled]="form.invalid || isLoading">
+          <span *ngIf="isLoading" class="spinner-border" role="status"></span> Save
+          
+        </button>
+        <div *ngIf="error" class="error-message">{{ error }}</div>
+
+      </form>
+    </div>
+  </div>
+  
+
+
+<!-- <div class="card border-primary mb-3">
+    <div class="card-header bg-primary text-white ">  <h3 *ngIf="!book.id;else update">Add Book</h3></div>
+    <ng-template #update>
+        <h3>Update Book</h3>
+    </ng-template>
+    <div class="card-body">
+       
+       
+
+        <form (ngSubmit)="onSubmit()" #form="ngForm"> 
+             <div class="form-group">
+                            <label for="code">Code:</label>
+                            <input type="text" class="form-control" id="code" name="code" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Nom:</label>
+                            <input type="text" class="form-control" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="prix">Prix:</label>
+                            <input type="number" class="form-control" id="prix" name="prix" step="0.01" required min="0.01">
+                        </div>
+                        <div class="form-group">
+                            <label for="auteur">Auteur:</label>
+                            <input type="text" class="form-control" id="auteur" name="auteur" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="image">Image:</label>
+                            <input type="file" class="form-control-file" id="image" name="image" accept="image/*" required>
+                        </div>
+                    
+                        <div class="form-group">
+                            <label for="description">Description:</label>
+                            <textarea class="form-control" id="description" name="description" rows="4" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Ajouter le Livre</button>
+                    </form>
+                </div>
+            </div> -->
+  
+
+    <!-- <div class="form-group">
+                            <label for="categorieById">Catégorie:</label>
+                            <select class="form-control" id="categorieById" name="categorieById" required>
+                            </select>
+                        </div> -->

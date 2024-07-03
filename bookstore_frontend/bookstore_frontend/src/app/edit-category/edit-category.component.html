@@ -1,0 +1,67 @@
+<div class="card border-primary mb-3">
+    <div class="card-header bg-primary text-white ">  <h3 *ngIf="!category.id;else update">Add Category</h3></div>
+    <ng-template #update>
+        <h3>Update Category</h3>
+    </ng-template>
+    <div class="card-body">
+       
+    
+        <form (ngSubmit)="onSubmit()" #form="ngForm">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input 
+                    type="text" 
+                    class="form-control"  
+                    name="name" 
+                    required 
+                    minlength="3" 
+                    pattern="^(?!\d+$)[a-zA-Z\s]*$" 
+                    [(ngModel)]="category.name" 
+                    #name="ngModel" 
+                    [ngClass]="{'is-invalid': name.invalid && name.dirty, 'is-valid': name.valid}">
+                <div *ngIf="name.invalid && name.dirty" class="invalid-feedback">
+                    <div *ngIf="name.errors?.['required']">Please provide a name.</div>
+                    <div *ngIf="name.errors?.['minlength']">Name must be at least 3 characters long.</div>
+                    <div *ngIf="name.errors?.['pattern']">Name can only contain letters and spaces, and cannot be purely numeric.</div>
+                </div>
+            </div>
+
+
+            <button type="submit" class="btn btn-primary " [disabled]="form.invalid || isLoading">
+                <span *ngIf="isLoading" class="spinner-border" role="status">
+                </span> Save
+            </button>
+        </form>
+    </div>
+</div>
+
+
+
+<!-- <div class="card border-primary mb-3">
+    <div class="card-header bg-primary text-white ">  <h3 *ngIf="!category.id;else update">Add Category</h3></div>
+    <ng-template #update>
+        <h3>Update Category</h3>
+    </ng-template>
+    <div class="card-body">
+       
+       
+
+        <form (ngSubmit)="onSubmit()" #form="ngForm">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" name="name" required [(ngModel)]="category.name" #name="ngModel"
+                    [ngClass]="{'is-invalid':name.invalid && name.dirty,'is-valid':name.valid}">
+
+                <div *ngIf="name.invalid && name.dirty" class="invalid-feedback">
+                    Please provide a name.
+                </div>
+            </div>
+
+
+            <button type="submit" class="btn btn-primary " [disabled]="form.invalid || isLoading">
+                <span *ngIf="isLoading" class="spinner-border" role="status">
+                </span> Save
+            </button>
+        </form>
+    </div>
+</div> -->
