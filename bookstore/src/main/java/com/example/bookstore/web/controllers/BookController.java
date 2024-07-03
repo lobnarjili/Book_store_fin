@@ -104,7 +104,8 @@ Book book =BookDTO.fromBookDTO(bookDTO);
          existingBook.setAuteur(bookToSave.getAuteur());
          existingBook.setImage(bookToSave.getImage());
          existingBook.setDescription(bookToSave.getDescription());
-       
+         existingBook.setCategory(bookToSave.getCategory());
+
          Book savedBook = bookService.updateBook(id, existingBook,updatedBook.categoryId());
          BookDTO savedBookDTO = BookDTO.toBookDTO(savedBook);
          return new ResponseEntity<>(savedBookDTO, HttpStatus.OK);
@@ -208,14 +209,14 @@ Book book =BookDTO.fromBookDTO(bookDTO);
     //     return new ResponseEntity<>(bookService.getAllBooksSortedByPrice(), HttpStatus.OK);
     // }
 
-    @GetMapping("/name/{name}")
-    @PreAuthorize("hasAnyRole('ADMIN', 'USER') and hasAuthority('READ_PRIVILEGE')")
-    public ResponseEntity<?> getBooksByName(@PathVariable("name") String name) {
-        List<BookSummaryDTO> books = bookService.getBooksByName(name).stream()
-                .map(BookSummaryDTO::toBookSummaryDTO)
-                .collect(Collectors.toList());
-        return new ResponseEntity<>(books, HttpStatus.OK);
-    }
+    // @GetMapping("/name/{nom}")
+    // @PreAuthorize("hasAnyRole('ADMIN', 'USER') and hasAuthority('READ_PRIVILEGE')")
+    // public ResponseEntity<?> getBooksByName(@PathVariable("nom") String nom) {
+    //     List<BookSummaryDTO> books = bookService.getBooksByName(nom).stream()
+    //             .map(BookSummaryDTO::toBookSummaryDTO)
+    //             .collect(Collectors.toList());
+    //     return new ResponseEntity<>(books, HttpStatus.OK);
+    // }
     
     
 }

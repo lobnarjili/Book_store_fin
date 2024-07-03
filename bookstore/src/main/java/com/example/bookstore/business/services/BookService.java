@@ -29,5 +29,5 @@ public interface BookService {
 
     List<Book> getBooksByCategoryId(Long categoryId);
 
-    List<Book> getBooksByName(String name);
+    // List<Book> getBooksByName(String nom);
 }

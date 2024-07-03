@@ -93,7 +93,8 @@ public class BookServiceImpl implements BookService {
         // Verify the existence
         getBookById(id);
         try{
-            book.setCategory(iCategoryService.getCategoryById(id));
+            book.setCategory(iCategoryService.getCategoryById(categoryId));
+            
         }catch (Exception e) {
             // Handle uniqueness constraint violations
             try {
@@ -180,10 +181,10 @@ public class BookServiceImpl implements BookService {
         public List<Book> getBooksByCategoryId(Long categoryId) {
             return bookRepository.findByCategoryId(categoryId);
         }
-        @Override
-        public List<Book> getBooksByName(String name) {
-            return bookRepository.findByNameContainingIgnoreCase(name);
-        }
+        // @Override
+        // public List<Book> getBooksByName(String nom) {
+        //     return bookRepository.findByNameContainingIgnoreCase(nom);
+        // }
 
     }
 
