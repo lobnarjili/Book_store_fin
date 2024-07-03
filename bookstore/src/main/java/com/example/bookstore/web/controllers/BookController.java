@@ -144,12 +144,40 @@ Book book =BookDTO.fromBookDTO(bookDTO);
 }
 
     // Retrieve all books by category ID
+    @GetMapping("/category/{categoryId}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER') and hasAuthority('READ_PRIVILEGE')")
+    public ResponseEntity<?> getBooksByCategoryId(@PathVariable("categoryId") Long categoryId) {
+        List<BookSummaryDTO> books = bookService.getBooksByCategoryId(categoryId).stream()
+                .map(BookSummaryDTO::toBookSummaryDTO)
+                .collect(Collectors.toList());
+        return new ResponseEntity<>(books, HttpStatus.OK);
+    }
+    
+
+
+
+
+
     // @GetMapping("/category/{categoryId}")
     // public ResponseEntity<?> getBooksByCategoryId(@PathVariable("categoryId") Long categoryId) {
      
     //     return new ResponseEntity<>("Failed: Category not found", HttpStatus.NOT_FOUND);
     // }
     // Retrieve book by code
+    @GetMapping("/code/{code}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER') and hasAuthority('READ_PRIVILEGE')")
+    public ResponseEntity<?> getBookByCode(@PathVariable("code") String code) {
+        Optional<Book> book = bookService.getBookByCode(code);
+        if (book.isPresent()) {
+            BookDTO bookDTO = BookDTO.toBookDTO(book.get());
+            return new ResponseEntity<>(bookDTO, HttpStatus.OK);
+        }
+        return new ResponseEntity<>("Failed: Book not found", HttpStatus.NOT_FOUND);
+    }
+    
+
+
+
     //   @GetMapping("/code/{code}")
     //   public ResponseEntity<Object> getBookByCode(@PathVariable("code") String code) {
     //       Optional<Book> book = bookService.getBookByCode(code);
@@ -160,12 +188,35 @@ Book book =BookDTO.fromBookDTO(bookDTO);
     //   }
 
       // Retrieve all books sorted by price in ascending order
+
+
+
+    //   @GetMapping("/sorted")
+    //   @PreAuthorize("hasAnyRole('ADMIN', 'USER') and hasAuthority('READ_PRIVILEGE')")
+    //   public ResponseEntity<List<BookSummaryDTO>> getAllBooksSortedByPrice() {
+    //       List<BookSummaryDTO> books = bookService.getAllBooksSortedByPrice().stream()
+    //               .map(BookSummaryDTO::toBookSummaryDTO)
+    //               .collect(Collectors.toList());
+    //       return new ResponseEntity<>(books, HttpStatus.OK);
+    //   }
+      
+
+
+      
     // @GetMapping("/sorted")
     // public ResponseEntity<List<Book>> getAllBooksSortedByPrice() {
     //     return new ResponseEntity<>(bookService.getAllBooksSortedByPrice(), HttpStatus.OK);
     // }
 
-
+    @GetMapping("/name/{name}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER') and hasAuthority('READ_PRIVILEGE')")
+    public ResponseEntity<?> getBooksByName(@PathVariable("name") String name) {
+        List<BookSummaryDTO> books = bookService.getBooksByName(name).stream()
+                .map(BookSummaryDTO::toBookSummaryDTO)
+                .collect(Collectors.toList());
+        return new ResponseEntity<>(books, HttpStatus.OK);
+    }
+    
     
 }
 

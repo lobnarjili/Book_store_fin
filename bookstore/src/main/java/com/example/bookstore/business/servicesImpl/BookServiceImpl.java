@@ -1,7 +1,9 @@
 package com.example.bookstore.business.servicesImpl;
 
 import java.util.List;
+import java.util.Optional;
 
+import org.springdoc.core.converters.models.Sort;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -161,6 +163,28 @@ public class BookServiceImpl implements BookService {
             // Save and return the updated Book in the repository
             return bookRepository.save(book);
         }
+
+
+        // @Override
+        // public List<Book> getAllBooksSortedByPrice() {
+        //     return bookRepository.findAll(Sort.by(Sort.Direction.ASC, "prix"));
+        // }
+        @Override
+        public Optional<Book> getBookByCode(String code) {
+            return bookRepository.findByCode(code);
+        }
+
+
+
+        @Override
+        public List<Book> getBooksByCategoryId(Long categoryId) {
+            return bookRepository.findByCategoryId(categoryId);
+        }
+        @Override
+        public List<Book> getBooksByName(String name) {
+            return bookRepository.findByNameContainingIgnoreCase(name);
+        }
+
     }
 
     // @Override
