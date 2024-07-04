@@ -9,13 +9,13 @@ import lombok.Builder;
 public record BookSummaryDTO(
     Long id,
     String name,
-    Category category 
+    Long categoryId 
 ) {
     public static BookSummaryDTO toBookSummaryDTO(Book book) {
         return new BookSummaryDTO(
             book.getId(),
             book.getNom(),
-            book.getCategory()
+            book.getCategory().getId()
         );
     }
 }

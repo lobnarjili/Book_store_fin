@@ -33,9 +33,104 @@
 <!--  <app-contacts></app-contacts> -->
 
 
-<div class="container">
+<!-- <div class="container">
   <app-navbar></app-navbar>
 </div>
 <div class="container">
+  <router-outlet></router-outlet>
+</div> -->
+
+<!-- <div class="container ">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <a class="navbar-brand" href="#">{{title|uppercase}}</a>
+
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav">
+              <li *ngIf="isAuth" class="nav-item">
+                  <a class="nav-link" routerLink="/" routerLinkActive="active">Home</a>
+              </li>
+            
+              <li *ngIf="isAuth" class="nav-item">
+                  <a class="nav-link" routerLink="/about" routerLinkActive="active">About</a>
+              </li>
+              <li *ngIf="isAuth" class="nav-item">
+                  <a class="nav-link" routerLink="/category"  outerLinkActive="active">Categories</a>
+              </li>
+              <li class="nav-item"  *ngIf="isAuth">
+                <a class="nav-link" routerLink="/books"  outerLinkActive="active">Books</a>
+              </li>
+             <li *ngIf="isAuth&&showAdminBoard" class="nav-item">
+                  <a class="nav-link" routerLink="/admin" routerLinkActive="active">Admin Board</a>
+              </li>
+          </ul>
+          <ul class="navbar-nav ml-auto">
+              <li *ngIf="!isAuth" class="nav-item dropdown" >
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" routerLinkActive="">
+                      Account
+                  </a>
+                  <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                      <a class="dropdown-item" routerLink="/signin">Sign In</a>
+                      <a class="dropdown-item" routerLink="/signup">Sign Up</a>
+                  </div>
+              </li>
+              <li class="nav-item" *ngIf="isAuth">
+                  <a class="btn btn-danger" (click)="onSignOut()">Sign Out</a>
+              </li>
+          </ul>
+      </div>
+  </nav>
+  <router-outlet></router-outlet>
+</div> -->
+
+<div class="container">
+  <!-- <h1 class="text-center mt-2 mb-2">Welcome to my {{title}}</h1> -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-5">
+      <a class="navbar-brand" routerLink="/">{{title|uppercase}}</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav">
+              <li *ngIf="isAuth" class="nav-item">
+                  <a class="nav-link" routerLink="/" routerLinkActive="active">Home</a>
+              </li>
+              <li *ngIf="isAuth" class="nav-item">
+                  <a class="nav-link" routerLink="/about" routerLinkActive="active">About</a>
+              </li>
+              <li *ngIf="isAuth" class="nav-item">
+                  <a class="nav-link" routerLink="/books" routerLinkActive="active">Books</a>
+              </li>
+              <li *ngIf="isAuth" class="nav-item">
+                <a class="nav-link" routerLink="/categories" routerLinkActive="active">Categories</a>
+            </li>
+             <li *ngIf="isAuth&&showAdminBoard" class="nav-item">
+                  <a class="nav-link" routerLink="/admin" routerLinkActive="active">Admin Board</a>
+              </li>
+          </ul>
+          <ul class="navbar-nav ml-auto">
+              <li *ngIf="!isAuth" class="nav-item dropdown" >
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" routerLinkActive="">
+                      Account
+                  </a>
+                  <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                      <a class="dropdown-item" routerLink="/signin">Sign In</a>
+                      <a class="dropdown-item" routerLink="/signup">Sign Up</a>
+                  </div>
+              </li>
+              <li class="nav-item" *ngIf="isAuth">
+                  <a class="btn btn-danger" (click)="onSignOut()">Sign Out</a>
+              </li>
+          </ul>
+      </div>
+  </nav>
   <router-outlet></router-outlet>
 </div>

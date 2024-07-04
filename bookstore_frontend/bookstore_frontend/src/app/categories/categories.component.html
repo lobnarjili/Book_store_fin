@@ -1,4 +1,4 @@
-<button class="btn btn-info" (click)="onAddCategory()">
+<button *ngIf="showAdminFn" class="btn btn-info" (click)="onAddCategory()">
     Add New Category
 </button>
 <div class="card border-primary mt-3">
@@ -16,8 +16,8 @@
                     <tr *ngFor="let category of categories">
                         <td>{{category.name}}</td>
                         <td><a routerLink="/categories/{{category.id}}" class="btn btn-success">Detail</a></td>
-                        <td><a routerLink="/categories/edit/{{category.id}}" class="btn btn-warning">Edit</a></td>
-                        <td><button class="btn btn-danger" (click)="onDelete(category.id)" [disabled]="isWaitingDelete"> 
+                        <td><a routerLink="/categories/edit/{{category.id}}" *ngIf="showAdminFn" class="btn btn-warning">Edit</a></td>
+                        <td><button class="btn btn-danger" (click)="onDelete(category.id)" *ngIf="showAdminFn" [disabled]="isWaitingDelete"> 
                               Delete
                             </button></td>
                     </tr>

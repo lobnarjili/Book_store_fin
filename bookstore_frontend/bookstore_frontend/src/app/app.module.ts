@@ -11,12 +11,15 @@ import { CategoryComponent } from './category/category.component';
 import { CategoryDetailComponent } from './category-detail/category-detail.component';
 import { AboutComponent } from './about/about.component';
 import { CategoriesComponent } from './categories/categories.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BooksComponent } from './books/books.component';
 import { BookDetailComponent } from './book-detail/book-detail.component';
 import { EditBookComponent } from './edit-book/edit-book.component';
-import { NavbarComponent } from './layout/navbar/navbar.component';
+// import { NavbarComponent } from './layout/navbar/navbar.component';
+import { SignupComponent } from './signup/signup.component';
+import { AdminComponent } from './admin/admin.component';
+import { HttpInterceptor } from './services/http.interceptor';
 
 @NgModule({
   declarations: [
@@ -31,8 +34,11 @@ import { NavbarComponent } from './layout/navbar/navbar.component';
     BooksComponent,
     BookDetailComponent,
     EditBookComponent,
-    NavbarComponent,
-    
+    // NavbarComponent,
+    SignupComponent,
+    AdminComponent,
+ 
+
   ],
   imports: [
     BrowserModule,
@@ -42,11 +48,8 @@ import { NavbarComponent } from './layout/navbar/navbar.component';
     HttpClientModule
   ],
   providers: [
-{
-  
-  provide: 'BaseURL', useValue: BaseURL
-
-}
+    { provide: HTTP_INTERCEPTORS, useClass: HttpInterceptor, multi: true },
+    { provide: 'BaseURL', useValue: BaseURL }
 
   ],
   bootstrap: [AppComponent]

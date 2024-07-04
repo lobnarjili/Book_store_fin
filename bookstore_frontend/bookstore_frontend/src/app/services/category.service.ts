@@ -12,7 +12,8 @@ export class CategoryService {
 
   categories: Category[] = CATEGORIES;
   httpOptions={
-    headers:new HttpHeaders({'content-type':'application/json'})
+    headers:new HttpHeaders({'content-type':'application/json'}),
+    withCredentials: true
   }
 
   constructor( private httpClient: HttpClient,
@@ -24,7 +25,7 @@ export class CategoryService {
     return this.contacts;
   }*/
     getCategories(): Observable<Category[]> {
-      return this.httpClient.get<Category[]>(this.baseURL+"/categories").pipe(
+      return this.httpClient.get<Category[]>(this.baseURL+"/categories" ,{ withCredentials: true}).pipe(
           catchError(this.processHttpmsgService.handleError)
       ) ;
     }
@@ -33,7 +34,7 @@ export class CategoryService {
     return this.contacts.find(contact => contact.id == id);
   } */
     getCategoryById(id: number): Observable<Category> {
-      return this.httpClient.get<Category>(this.baseURL+"/categories/"+id);
+      return this.httpClient.get<Category>(this.baseURL+"/categories/"+id ,{ withCredentials: true});
     }
 /*   deleteContactById(id: number): void {
     let index = this.contacts.findIndex(contact => contact.id === id);
@@ -42,7 +43,7 @@ export class CategoryService {
     }
   } */
     deleteCategoryById(id: number): Observable<any> {
-      return this.httpClient.delete<any>(this.baseURL+"/categories/"+id)
+      return this.httpClient.delete<any>(this.baseURL+"/categories/"+id ,{ withCredentials: true})
     } 
 
 /*   addContact(contact:Contact){

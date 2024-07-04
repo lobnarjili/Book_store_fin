@@ -11,7 +11,7 @@ public record BookDTO(
     Double prix,
     String auteur,
     String image,
-    CategoryDTO categorieById,
+    Long categoryId,
     String description
 ) {
     public static BookDTO toBookDTO(Book book) {
@@ -22,7 +22,9 @@ public record BookDTO(
             book.getPrix(),
             book.getAuteur(),
             book.getImage(),
-            CategoryDTO.toCategoryDTO(book.getCategory()),
+            // CategoryDTO.toCategoryDTO(book.getCategory()),
+      
+            book.getCategory().getId(),
             book.getDescription()
         );
     }
@@ -35,7 +37,7 @@ public record BookDTO(
             .prix(bookDTO.prix())
             .auteur(bookDTO.auteur())
             .image(bookDTO.image())
-            .category(CategoryDTO.fromCategoryDTO(bookDTO.categorieById()))
+            .category(null)
             .description(bookDTO.description())
             .build();
     }

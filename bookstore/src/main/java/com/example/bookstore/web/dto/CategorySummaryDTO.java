@@ -7,11 +7,9 @@ import lombok.Builder;
 @Builder
 
 public record CategorySummaryDTO(
-
-
-    
         Long id,
         String name
+        
     ) {
         public static  CategorySummaryDTO toCategorySummaryDTO(Category category) {
             CategorySummaryDTO  categorySummaryDTO = CategorySummaryDTO.builder()

@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -35,68 +36,62 @@ import com.example.bookstore.web.dto.CategorySummaryDTO;
 
  */
 @RestController
-@RequestMapping("/categories")
-
+@RequestMapping("/api/categories")
 public class CategoryController {
+
     @Autowired
     private ICategoryService categoryService;
 
-// Retrieve All Categories
- 
+    // Retrieve All Categories
     @GetMapping()
-   
-public ResponseEntity<?> getAllCategories() {
-        List<CategorySummaryDTO> categories = this.categoryService.getAllCategories()
+    @PreAuthorize("hasAnyRole('ADMIN','USER') and hasAuthority('READ_PRIVILEGE')")
+    public ResponseEntity<?> getAllCategories() {
+        List<CategorySummaryDTO> categories = categoryService.getAllCategories()
                 .stream()
                 .map(CategorySummaryDTO::toCategorySummaryDTO)
-    
-                .collect(Collectors.toList()); 
-   
+                .collect(Collectors.toList());
+
         return new ResponseEntity<>(categories, HttpStatus.OK);
     }
 
-// Retrieve Category by ID
-@GetMapping("/{id}")
+    // Retrieve Category by ID
+    @GetMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN','USER') and hasAuthority('READ_PRIVILEGE')")
 
     public ResponseEntity<?> getCategoryById(@PathVariable Long id) {
-       CategoryDTO category =CategoryDTO.toCategoryDTO(this.categoryService.getCategoryById(id));
- 
-            return new ResponseEntity<>(category, HttpStatus.OK);
-          }
+        CategoryDTO category = CategoryDTO.toCategoryDTO(categoryService.getCategoryById(id));
+        return new ResponseEntity<>(category, HttpStatus.OK);
+    }
 
-
-// Create a Category
-
+    // Create a Category
     @PostMapping()
+    @PreAuthorize("hasAnyRole('ADMIN') and hasAuthority('WRITE_PRIVILEGE')")
+
     public ResponseEntity<?> createCategory(@RequestBody CategoryDTO categoryDTO) {
-         Category category =CategoryDTO.fromCategoryDTO(categoryDTO);
+        Category category = CategoryDTO.fromCategoryDTO(categoryDTO);
         return new ResponseEntity<>(this.categoryService.createCategory(category), HttpStatus.CREATED);
     }
 
-// Update a Category
+    // Update a Category
+    @PutMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN') and hasAuthority('UPDATE_PRIVILEGE')")
 
-
-
-
- @PutMapping("/{id}")
     // @PutMapping("/categories/{id}")
     public ResponseEntity<?> updateCategory(@PathVariable Long id, @RequestBody CategoryDTO categoryDTO) {
         Category category = CategoryDTO.fromCategoryDTO(categoryDTO);
         categoryService.getCategoryById(id);
-        
-            return new ResponseEntity<>(this.categoryService.updateCategory(id,category), HttpStatus.OK);
-        
+
+        return new ResponseEntity<>(this.categoryService.updateCategory(id, category), HttpStatus.OK);
+
     }
-//   Delete a Category
+    // Delete a Category
 
     @DeleteMapping("/{id}")
-  
+    @PreAuthorize("hasAnyRole('ADMIN') and hasAuthority('DELETE_PRIVILEGE')")
+
     public ResponseEntity<Object> deleteCategory(@PathVariable Long id) {
-  
-            this.categoryService.deleteCategoryById(id);
-         
+        this.categoryService.deleteCategoryById(id);
         return new ResponseEntity<>("Category not found", HttpStatus.NO_CONTENT);
     }
-
 
 }

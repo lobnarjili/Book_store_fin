@@ -11,21 +11,26 @@ import { CategoriesComponent } from './categories/categories.component';
 import { BooksComponent } from './books/books.component';
 import { BookDetailComponent } from './book-detail/book-detail.component';
 import { EditBookComponent } from './edit-book/edit-book.component';
+import { AdminComponent } from './admin/admin.component';
+import { SignupComponent } from './signup/signup.component';
 
 const routes: Routes = [
-  { path: '',canActivate:[authGuard], component: HomeComponent,pathMatch:'full' },
+  { path:'',canActivate:[authGuard], data: {roles: ['ROLE_ADMIN','ROLE_USER']}, component: HomeComponent,pathMatch:'full' },
   // { path: 'about',canActivate:[authGuard], component: AboutComponent },
-  { path: 'categories',canActivate:[authGuard], component: CategoriesComponent },
-  { path: 'categories/edit/:id',canActivate:[authGuard], component:EditCategoryComponent },
-  { path: 'categories/:id',canActivate:[authGuard], component:  CategoryDetailComponent },
-  
-   { path: 'books',canActivate:[authGuard], component: BooksComponent },
-   { path: 'books/edit/:id',canActivate:[authGuard], component:EditBookComponent},
-   { path: 'books/:id',canActivate:[authGuard], component:  BookDetailComponent },
-
-{ path: 'signin', component: SigninComponent },
-  { path: 'about', component: AboutComponent },
-  { path: '**', redirectTo: '/categories' } 
+  { path: 'categories',canActivate:[authGuard], data: {roles: ['ROLE_ADMIN']}, component: CategoriesComponent },
+  { path: 'categories/edit/:id',canActivate:[authGuard], data: {roles: ['ROLE_ADMIN']}, component:EditCategoryComponent },
+  { path: 'categories/:id',canActivate:[authGuard], data: {roles: ['ROLE_ADMIN']}, component:  CategoryDetailComponent },
+  // data: {roles: ['ROLE_ADMIN','ROLE_USER']},
+   { path: 'books',canActivate:[authGuard],data: {roles: ['ROLE_ADMIN','ROLE_USER']}, component: BooksComponent },
+   { path: 'books/edit/:id',canActivate:[authGuard], data: {roles: ['ROLE_ADMIN','ROLE_USER']},component:EditBookComponent},
+   { path: 'books/:id',canActivate:[authGuard],data: {roles: ['ROLE_ADMIN','ROLE_USER']},component:  BookDetailComponent },
+   {path:'admin', canActivate:[authGuard], data: {roles: ['ROLE_ADMIN']},component:AdminComponent},
+// { path: 'signin', component: SigninComponent },
+{path:'signin',component:SigninComponent},
+{path:'signup',component:SignupComponent},
+  // { path: '/about', component: AboutComponent },
+  {path:'about',canActivate: [authGuard],data: {roles: ['ROLE_ADMIN','ROLE_USER']},component:AboutComponent},
+  // { path: '**', redirectTo: '/categories' } 
   // { path: '**', component: NotFoundComponent }
   // { path: 'categories', component: CategoryComponent },
   // { path: 'categories/:id', component: CategoryDetailComponent },

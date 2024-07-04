@@ -1,0 +1,94 @@
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Sign Up</h4>
+                    <div *ngIf="successMessage" class="alert alert-success mt-3 text-center">
+                        {{ successMessage }} <a routerLink="/signin" class="alert-link">Sign In</a>
+                    </div>
+                    <div *ngIf="errorMessage" class="alert alert-danger mt-3 text-center">
+                        {{ errorMessage }}
+                    </div>
+                    <form [formGroup]="registerForm" (ngSubmit)="onSubmitSignup()">
+                        <div class="mb-3">
+                            <div class="form-group">
+                                <label for="firstname">First Name</label>
+                                <input type="text" formControlName="firstname" id="firstname" class="form-control">
+                                <div class="text-danger"
+                                    *ngIf="registerForm.get('firstname')?.touched && registerForm.get('firstname')?.invalid">
+                                    <small *ngIf="registerForm.get('firstname')?.hasError('required')">First Name is
+                                        required</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastname">Last Name</label>
+                            <input type="text" formControlName="lastname" id="lastname" class="form-control">
+                            <div class="text-danger"
+                                *ngIf="registerForm.get('lastname')?.touched && registerForm.get('lastname')?.invalid">
+                                <small *ngIf="registerForm.get('lastname')?.hasError('required')">Last Name is
+                                    required</small>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" formControlName="email" id="email" class="form-control">
+                            <div class="text-danger"
+                                *ngIf="registerForm.get('email')?.touched && registerForm.get('email')?.invalid">
+                                <small *ngIf="registerForm.get('email')?.hasError('required')">Email is required</small>
+                                <small *ngIf="registerForm.get('email')?.hasError('email')">Email is invalid</small>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" formControlName="password" id="password" class="form-control">
+                            <div class="text-danger"
+                                *ngIf="registerForm.get('password')?.touched && registerForm.get('password')?.invalid">
+                                <small *ngIf="registerForm.get('password')?.hasError('required')">Password is
+                                    required</small>
+                                <small *ngIf="registerForm.get('password')?.hasError('minlength')">Password must be at
+                                    least 6 characters long</small>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="confirmPassword">Confirm Password</label>
+                            <input type="password" formControlName="confirmPassword" id="confirmPassword"
+                                class="form-control">
+                            <div class="text-danger"
+                                *ngIf="registerForm.get('confirmPassword')?.touched && registerForm.get('confirmPassword')?.invalid">
+                                <small *ngIf="registerForm.get('confirmPassword')?.hasError('required')">Confirm Password
+                                    is required</small>
+                                <small *ngIf="registerForm.hasError('matching')">Passwords do not match</small>
+                            </div>
+                        </div>
+                        <div class="form-group"   *ngIf="showAdminFn " >
+                            <label for="role">Role</label><br>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" formControlName="role" id="roleUser"
+                                    value="USER">
+                                <label class="form-check-label" for="roleUser">User</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" formControlName="role" id="roleAdmin"
+                                    value="ADMIN">
+                                <label class="form-check-label" for="roleAdmin">Admin</label>
+                            </div>
+                            <div class="text-danger"
+                                *ngIf="registerForm.get('role')?.touched && registerForm.get('role')?.invalid">
+                                <small *ngIf="registerForm.get('role')?.hasError('required')">Role is required</small>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary"
+                            [disabled]="registerForm.invalid">
+                            <span *ngIf="!isLoading">Register</span>
+                            <span *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                            <span *ngIf="isLoading" class="sr-only">Loading...</span>
+                        </button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

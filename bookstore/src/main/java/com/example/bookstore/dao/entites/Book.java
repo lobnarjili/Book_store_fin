@@ -6,6 +6,7 @@ import org.springframework.hateoas.Link;
 import org.springframework.hateoas.RepresentationModel;
 
 import com.example.bookstore.web.dto.BookDTO.BookDTOBuilder;
+import com.example.bookstore.web.dto.CategoryDTO;
 
 import jakarta.persistence.Column;
 
@@ -109,6 +110,11 @@ public class Book   extends RepresentationModel<Book>{
     }
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public void setCategory(CategoryDTO categorieById) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'setCategory'");
     }
 
  

@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Book } from '../shared/book';
 import { Router } from '@angular/router';
 import { BookService } from '../services/book.service';
+import { AuthService } from '../services/auth.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-books',
@@ -9,13 +11,21 @@ import { BookService } from '../services/book.service';
   styleUrls: ['./books.component.css']
 })
 export class BooksComponent 
-  implements OnInit{
+  implements OnInit,OnDestroy {
 
    books!:Book[]
     errMsg!:string
     isWaiting:boolean=false;
     isWaitingDelete:boolean=false;
-    constructor(private router:Router,private bookService:BookService){}
+    showAdminFn = false;
+    showUserFn = false;
+  
+    authUserSub!: Subscription;
+    constructor(
+      private router:Router,
+      private bookService:BookService,
+      private authService: AuthService
+    ){}
     ngOnInit(): void {
       this.bookService.getBooks().subscribe(
         {
@@ -23,6 +33,24 @@ export class BooksComponent
           error: (err) => { this.books = [], this.isWaiting = false; this.errMsg = err }
         }
       )
+
+          // Subscribe to the AuthenticatedUser$ observable
+    this.authUserSub=this.authService.AuthenticatedUser$.subscribe({
+      next: user => {
+        // If user is authenticated
+        if (user) {
+          // Show admin Fn if user has admin role
+          this.showAdminFn = user.role.name === 'ROLE_ADMIN' ;
+          this.showUserFn = user.role.name === 'ROLE_USER' ;
+          
+          console.log(this.showAdminFn);
+
+        } else {
+          this.showAdminFn = false;
+          this.showUserFn = false;
+        }
+      }
+    })
     }
 
 
@@ -46,5 +74,9 @@ onAddBook() {
  console.log("emchi bras omek ")
   this.router.navigateByUrl('/books/edit/-1')
 }
+ngOnDestroy(): void {
+  // Unsubscribe from the AuthenticatedUser$ observable to prevent memory leaks
+  this.authUserSub.unsubscribe();
+ }
 
 }

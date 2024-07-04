@@ -9,10 +9,13 @@ import { BOOKS } from '../shared/books';
   providedIn: 'root'
 })
 export class BookService {
+  [x: string]: any;
 
   books: Book[] = BOOKS;
   httpOptions={
-    headers:new HttpHeaders({'content-type':'application/json'})
+    headers:new HttpHeaders({'content-type':'application/json'}),
+    withCredentials: true
+
   }
 
   constructor( private httpClient: HttpClient,
@@ -24,7 +27,7 @@ export class BookService {
     return this.contacts;
   }*/
     getBooks(): Observable<Book[]> {
-      return this.httpClient.get<Book[]>(this.baseURL+"/books").pipe(
+      return this.httpClient.get<Book[]>(this.baseURL+"/books",{ withCredentials: true}).pipe(
           catchError(this.processHttpmsgService.handleError)
       ) ;
     }
@@ -33,7 +36,7 @@ export class BookService {
     return this.contacts.find(contact => contact.id == id);
   } */
     getBookById(id: number): Observable<Book> {
-      return this.httpClient.get<Book>(this.baseURL+"/books/"+id);
+      return this.httpClient.get<Book>(this.baseURL+"/books/"+id,{ withCredentials: true});
     }
 /*   deleteContactById(id: number): void {
     let index = this.contacts.findIndex(contact => contact.id === id);
@@ -42,7 +45,7 @@ export class BookService {
     }
   } */
     deleteBookById(id: number): Observable<any> {
-      return this.httpClient.delete<any>(this.baseURL+"/books/"+id)
+      return this.httpClient.delete<any>(this.baseURL+"/books/"+id,{ withCredentials: true})
     } 
 
 /*   addContact(contact:Contact){

@@ -1,4 +1,4 @@
-<button class="btn btn-success" (click)="onAddBook()"> Add New Book </button>
+<button  *ngIf="showAdminFn || showUserFn "    class="btn btn-success" (click)="onAddBook()"> Add New Book </button>
 
 <div class="card border-primary mt-3">
     <div class="card-header bg-primary text-white">
@@ -15,8 +15,8 @@
                     <tr *ngFor="let book of books">
                         <td>{{book.name}}</td>
                         <td><a routerLink="/books/{{book.id}}" class="btn btn-success">Detail</a></td>
-                        <td><a routerLink="/books/edit/{{book.id}}" class="btn btn-warning">Edit</a></td>
-                        <td><button class="btn btn-danger" (click)="onDelete(book.id)" [disabled]="isWaitingDelete"> 
+                        <td><a routerLink="/books/edit/{{book.id}}" *ngIf="showAdminFn || showUserFn " class="btn btn-warning">Edit</a></td>
+                        <td><button class="btn btn-danger"  *ngIf="showAdminFn || showUserFn "  (click)="onDelete(book.id)" [disabled]="isWaitingDelete"> 
                               Delete
                             </button></td>
                     </tr>
