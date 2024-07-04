@@ -1,18 +1,17 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { AuthService } from '../services/auth.service';
-import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Subscription } from 'rxjs';
+import { AuthService } from '../services/auth.service';
+import { ActivatedRoute, Router } from '@angular/router';
 import Validation from '../validators/validation';
 import { RegisterUser } from '../shared/register-user';
 
-// Define metadata for the component
 @Component({
-  selector: 'app-signup', 
-  templateUrl: './signup.component.html', 
-  styleUrls: ['./signup.component.css'] 
+  selector: 'app-edit-user',
+  templateUrl: './edit-user.component.html',
+  styleUrls: ['./edit-user.component.css']
 })
-export class SignupComponent implements OnInit, OnDestroy {
+export class EditUserComponent implements OnInit, OnDestroy {
 
   successMessage!: string; // Variable to store success messages
   errorMessage!: string; // Variable to store error messages
@@ -24,24 +23,34 @@ export class SignupComponent implements OnInit, OnDestroy {
   constructor(
     private authService: AuthService, // Inject AuthService for authentication
     private router: Router, // Inject Router for navigation
+    private route: ActivatedRoute,
     private formBuilder: FormBuilder // Inject FormBuilder for reactive form creation
   ) { }
 
   // Lifecycle hook that is called after Angular has initialized all data-bound properties
   ngOnInit() {
+    
+  //   this.route.paramMap.subscribe(result => {
+  //     let id = result.get('id');
+  //     if ( id !== "-1") 
+  //       this.initForm();
+    
+  //   }
+  // )
     // Subscribe to the AuthenticatedUser$ observable to monitor authentication state
     this.AuthUserSub = this.authService.AuthenticatedUser$.subscribe({
       next: user => {
         // If a user is authenticated, navigate to the home page
         if (user) {
           this.showAdminFn = user.role.name === 'ROLE_ADMIN' ;
+          this.router.navigate(['/']);
+          console.log(this.showAdminFn);
+
         }
       }
     });
     // Initialize the registration form
-    this.initForm();
-
-    
+    // this.initForm();
   }
 
   // Initialize the registration form with validation
@@ -78,7 +87,6 @@ export class SignupComponent implements OnInit, OnDestroy {
         this.errorMessage = '';
         this.registerForm.reset();
         this.isLoading = false;
-      
       },
       error: err => {
         // On error, set the error message, clear success message, and stop loading

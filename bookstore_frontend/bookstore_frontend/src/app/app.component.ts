@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class AppComponent implements OnInit {
 
-  title = 'bookstore';
+  title = 'BOOK NOOK';
     // Indicates if the user is authenticated
     isAuth: boolean = false;
   

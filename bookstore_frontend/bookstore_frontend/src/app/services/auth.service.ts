@@ -48,7 +48,8 @@ export class AuthService {
           role: {
             name: user.roles.find(role => role.includes('ROLE')) || '',
             permissions: user.roles.filter(permission => !permission.includes('ROLE'))
-          }
+          },
+        
         };
         this.storageService.saveUser(extractedUser); // Save user to local storage
         this.AuthenticatedUser$.next(extractedUser); // Update BehaviorSubject with authenticated user

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { Book } from '../shared/book';
 import { Router } from '@angular/router';
 import { BookService } from '../services/book.service';
@@ -24,8 +24,8 @@ export class BooksComponent
     constructor(
       private router:Router,
       private bookService:BookService,
-      private authService: AuthService
-    ){}
+      private authService: AuthService,
+      @Inject('BaseURL') public baseURL:any) { }
     ngOnInit(): void {
       this.bookService.getBooks().subscribe(
         {
@@ -69,7 +69,21 @@ export class BooksComponent
     );
 
   }
-
+  getBooksByCategory(categoryId: number) {
+    this.isWaiting = true;
+    this.bookService.getBooksByCategoryId(categoryId).subscribe({
+      next: (books: Book[]) => {
+        this.books = books;
+        this.isWaiting = false;
+        this.errMsg = '';
+      },
+      error: (err) => {
+        this.books = [];
+        this.isWaiting = false;
+        this.errMsg = err;
+      }
+    });
+  }
 onAddBook() {
  console.log("emchi bras omek ")
   this.router.navigateByUrl('/books/edit/-1')

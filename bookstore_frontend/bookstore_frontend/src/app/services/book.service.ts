@@ -60,5 +60,7 @@ export class BookService {
         return this.httpClient.put<Book>(this.baseURL+'/books/'+book.id,book,this.httpOptions)
        }
  
-
+       getBooksByCategoryId(categoryId: number): Observable<Book[]> {
+        return this.httpClient.get<Book[]>(`${this.baseURL}/category/${categoryId}`);
+      }
 }

@@ -1,0 +1,26 @@
+<div class="card border-primary mb-3">
+    <div class="card-header bg-primary text-white ">  User Detail Component</div>
+    <div class="card-body">
+        <div *ngIf="user ; else nousers">
+            <h3>user detail</h3>
+            <div class="card" style="width: 25em;">
+                <!-- <img [src]="user.image?baseURL+'/storage/files/'+user.image:'../../assets/images/logo.png'" class="card-img-top" alt="..."> -->
+                <div class="card-body">
+                    <h5 class="card-title">{{user.email}}</h5>
+                  
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><strong> </strong> {{user.id}}</li>
+                    <li class="list-group-item"><strong>Role</strong> {{user.role}}.</li>
+                  
+                </ul>
+            </div>
+        </div>
+        <ng-template #nousers>
+            <p>user not found</p>
+        </ng-template>
+    </div>
+</div>
+<button class="btn btn-primary" (click)="onUsers()">
+    Go to users
+</button>

@@ -20,6 +20,9 @@ import { EditBookComponent } from './edit-book/edit-book.component';
 import { SignupComponent } from './signup/signup.component';
 import { AdminComponent } from './admin/admin.component';
 import { HttpInterceptor } from './services/http.interceptor';
+import { UsersComponent } from './users/users.component';
+import { UserDetailComponent } from './user-detail/user-detail.component';
+import { EditUserComponent } from './edit-user/edit-user.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +40,9 @@ import { HttpInterceptor } from './services/http.interceptor';
     // NavbarComponent,
     SignupComponent,
     AdminComponent,
+    UsersComponent,
+    UserDetailComponent,
+    EditUserComponent,
  
 
   ],

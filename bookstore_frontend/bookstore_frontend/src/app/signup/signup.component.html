@@ -3,7 +3,10 @@
         <div class="col-md-6">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Sign Up</h4>
+                    <h4 class="card-title" *ngIf="!showAdminFn ; else update">Sign Up</h4> 
+                    <ng-template #update>
+                        <h3>Add new User </h3>
+                      </ng-template>
                     <div *ngIf="successMessage" class="alert alert-success mt-3 text-center">
                         {{ successMessage }} <a routerLink="/signin" class="alert-link">Sign In</a>
                     </div>
@@ -84,6 +87,7 @@
                             <span *ngIf="!isLoading">Register</span>
                             <span *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                             <span *ngIf="isLoading" class="sr-only">Loading...</span>
+                            <span  *ngIf="showAdminFn " routerLink="/users">  </span>
                         </button>
                     </form>
 

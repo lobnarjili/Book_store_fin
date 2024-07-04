@@ -33,6 +33,8 @@ export class CategoryDetailComponent  implements OnInit {
 
   }
 
-
+  onCategories() {
+    this.router.navigateByUrl("/categories")
+  }
 
 }

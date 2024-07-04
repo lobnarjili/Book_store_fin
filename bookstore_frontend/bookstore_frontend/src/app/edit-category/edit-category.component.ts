@@ -158,4 +158,7 @@ export class EditCategoryComponent implements OnInit {
       });
     }
   }
+  onCategories() {
+    this.router.navigateByUrl("/categories")
+  }
 }

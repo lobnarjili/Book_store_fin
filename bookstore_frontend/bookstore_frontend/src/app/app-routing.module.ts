@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { SigninComponent } from './signin/signin.component';
 import { EditCategoryComponent } from './edit-category/edit-category.component';
@@ -13,9 +13,14 @@ import { BookDetailComponent } from './book-detail/book-detail.component';
 import { EditBookComponent } from './edit-book/edit-book.component';
 import { AdminComponent } from './admin/admin.component';
 import { SignupComponent } from './signup/signup.component';
+import { UsersComponent } from './users/users.component';
+import { UserDetailComponent } from './user-detail/user-detail.component';
+import { EditUserComponent } from './edit-user/edit-user.component';
 
 const routes: Routes = [
-  { path:'',canActivate:[authGuard], data: {roles: ['ROLE_ADMIN','ROLE_USER']}, component: HomeComponent,pathMatch:'full' },
+  // { path:'',canActivate:[authGuard], data: {roles: ['ROLE_ADMIN','ROLE_USER']}, component: HomeComponent,pathMatch:'full' },
+  { path:'',component: HomeComponent,pathMatch:'full' },
+
   // { path: 'about',canActivate:[authGuard], component: AboutComponent },
   { path: 'categories',canActivate:[authGuard], data: {roles: ['ROLE_ADMIN']}, component: CategoriesComponent },
   { path: 'categories/edit/:id',canActivate:[authGuard], data: {roles: ['ROLE_ADMIN']}, component:EditCategoryComponent },
@@ -24,6 +29,9 @@ const routes: Routes = [
    { path: 'books',canActivate:[authGuard],data: {roles: ['ROLE_ADMIN','ROLE_USER']}, component: BooksComponent },
    { path: 'books/edit/:id',canActivate:[authGuard], data: {roles: ['ROLE_ADMIN','ROLE_USER']},component:EditBookComponent},
    { path: 'books/:id',canActivate:[authGuard],data: {roles: ['ROLE_ADMIN','ROLE_USER']},component:  BookDetailComponent },
+   { path: 'users',canActivate:[authGuard],data: {roles: ['ROLE_ADMIN']}, component: UsersComponent },
+   { path: 'users/adduser',canActivate:[authGuard], data: {roles: ['ROLE_ADMIN']},component:EditUserComponent},
+  { path: 'users/:id',canActivate:[authGuard],data: {roles: ['ROLE_ADMIN']},component:  UserDetailComponent },
    {path:'admin', canActivate:[authGuard], data: {roles: ['ROLE_ADMIN']},component:AdminComponent},
 // { path: 'signin', component: SigninComponent },
 {path:'signin',component:SigninComponent},
